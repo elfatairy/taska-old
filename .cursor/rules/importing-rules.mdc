@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+When importing always use the ~/ path alias, don't use ./ or ../

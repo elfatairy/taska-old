@@ -1,0 +1,5 @@
+---
+globs: ["routes/**/*.tsx"]
+---
+
+When creating a new route, follow the react router framework functions declaration pattern

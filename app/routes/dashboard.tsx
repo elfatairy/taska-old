@@ -1,5 +1,4 @@
-import { Header } from "~/components/Header";
-import Sidebar from "~/components/Sidebar";
+import { Header } from "~/routes/components/Header";
 import type { Route } from "./+types/dashboard";
 
 export function meta({ }: Route.MetaArgs) {
@@ -12,8 +11,8 @@ export function meta({ }: Route.MetaArgs) {
 export default function Dashboard() {
   return <div className="flex">
     <Header />
-    <div className="flex">
+    {/* <div className="flex">
       <Sidebar />
-    </div>
+    </div> */}
   </div>;
 }
