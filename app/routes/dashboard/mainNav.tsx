@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "lucide-react"
-import { Link } from "react-router"
+import { NavLink } from "react-router"
 import { Icon } from "~/components/Icon"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "~/components/ui/collapsible"
 import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "~/components/ui/sidebar"
@@ -8,63 +8,68 @@ import type { Route } from "~/routes/dashboard/types"
 export const mainRoutes: Route[] = [
   {
     label: "Overview",
-    href: "/",
+    href: "/dashboard",
+    icon: 'ChartPie'
   },
   {
     label: "Pages",
-    href: "/pages",
+    href: "/dashboard/pages",
+    icon: "DocumentReport",
     children: [
       {
         label: "Users",
-        href: "/users",
+        href: "/dashboard/pages/users",
       },
       {
         label: "Profile",
-        href: "/profile",
+        href: "/dashboard/pages/profile"
       },
       {
         label: "Settings",
-        href: "/settings",
+        href: "/dashboard/pages/settings",
       },
       {
         label: "Pricing",
-        href: "/pricing",
+        href: "/dashboard/pages/pricing",
       },
       {
         label: "Calendar",
-        href: "/calendar",
+        href: "/dashboard/pages/calendar",
       },
       {
         label: "Kanban",
-        href: "/kanban",
+        href: "/dashboard/pages/kanban",
       }
     ],
   },
   {
     label: "Sales",
-    href: "/sales",
+    href: "/dashboard/sales",
+    icon: 'ShoppingBag',
     children: [
       {
         label: "Product List",
-        href: "/product-list",
+        href: "/dashboard/sales/product-list",
       },
       {
         label: "Billing",
-        href: "/billing",
+        href: "/dashboard/sales/billing",
       },
       {
         label: "Invoice",
-        href: "/invoice",
+        href: "/dashboard/sales/invoice",
       },
     ],
   },
   {
     label: "Messages",
-    href: "/messages"
+    href: "/dashboard/messages",
+    icon: 'InboxIn'
   },
   {
     label: "Authentication",
-    href: "/authentication"
+    href: "/dashboard/authentication",
+    icon: 'LockClosed'
   }
 ]
 
@@ -79,12 +84,12 @@ export function MainNav() {
                 <Collapsible key={route.label}>
                   <SidebarMenuItem key={route.label}>
                     <SidebarMenuButton asChild>
-                      <Link to={route.href}>
+                      <NavLink to={route.href}>
                         {route.icon && <Icon icon={route.icon} />}
                         {route.label}
-                      </Link>
+                      </NavLink>
                     </SidebarMenuButton>
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger asChild>
                       <SidebarMenuAction>
                         <ChevronDownIcon className="size-4" />
                       </SidebarMenuAction>
@@ -95,10 +100,10 @@ export function MainNav() {
                           route.children.map((child) => (
                             <SidebarMenuItem key={child.label}>
                               <SidebarMenuButton asChild>
-                                <Link to={child.href}>
+                                <NavLink to={child.href}>
                                   {child.icon && <Icon icon={child.icon} />}
                                   {child.label}
-                                </Link>
+                                </NavLink>
                               </SidebarMenuButton>
                             </SidebarMenuItem>
                           ))
@@ -110,10 +115,10 @@ export function MainNav() {
               ) : (
                 <SidebarMenuItem key={route.label}>
                   <SidebarMenuButton asChild>
-                    <Link to={route.href}>
+                    <NavLink to={route.href} className={({ isActive }) => isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : ''}>
                       {route.icon && <Icon icon={route.icon} />}
                       {route.label}
-                    </Link>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )

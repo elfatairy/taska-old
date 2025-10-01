@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { NavLink } from "react-router"
 import { Icon } from "~/components/Icon"
 import { SidebarGroup, SidebarGroupContent, SidebarMenuButton, SidebarMenuItem } from "~/components/ui/sidebar"
 import type { Route } from "~/routes/dashboard/types"
@@ -6,16 +6,18 @@ import type { Route } from "~/routes/dashboard/types"
 const utilityRoutes: Route[] = [
   {
     label: "Documents",
-    href: "/documents",
-    icon: 'Profile'
+    href: "/dashboard/documents",
+    icon: 'ClipboardList'
   },
   {
     label: "Components",
-    href: "/components",
+    href: "/dashboard/components",
+    icon: 'Collection'
   },
   {
     label: "Help",
-    href: "/help",
+    href: "/dashboard/help",
+    icon: 'Support'
   },
 ]
 
@@ -27,10 +29,10 @@ export function UtilityNav() {
           utilityRoutes.map((route) => (
             <SidebarMenuItem key={route.label}>
               <SidebarMenuButton asChild>
-                <Link to={route.href}>
+                <NavLink to={route.href} >
                   {route.icon && <Icon icon={route.icon} />}
                   {route.label}
-                </Link>
+                </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))
