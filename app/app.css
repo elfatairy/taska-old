@@ -110,5 +110,6 @@ body {
 
   .custom-icon path, .custom-icon rect {
     stroke: currentColor;
+    fill: currentColor;
   }
 }

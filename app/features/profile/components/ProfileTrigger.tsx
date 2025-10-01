@@ -8,8 +8,8 @@ export default function ProfileTrigger() {
 
 function PlaceholderProfileIcon() {
   return (
-    <div className="flex">
-      <Icon icon='Profile' />
+    <div className="flex items-center justify-center bg-muted text-muted-foreground rounded-full w-9 h-9">
+      <Icon icon='Profile' className="w-4 h-4" />
     </div>
   )
 }

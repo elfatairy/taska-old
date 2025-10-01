@@ -9,7 +9,7 @@ export function Header() {
       <Icon icon='Logo' width={30} height={30} />
       <SearchBar />
     </div>
-    <div className="flex items-center">
+    <div className="flex items-center gap-4">
       <NotificationTrigger />
       <ProfileTrigger />
     </div>
