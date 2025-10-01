@@ -1,9 +1,8 @@
-import { ChevronDownIcon } from "lucide-react"
-import { NavLink } from "react-router"
-import { Icon } from "~/components/Icon"
+import { ChevronRight } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "~/components/ui/collapsible"
-import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from "~/components/ui/sidebar"
-import type { Route } from "~/routes/dashboard/types"
+import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub as SidebarMenuSubBase, SidebarMenuSubButton, SidebarMenuSubItem } from "~/components/ui/sidebar"
+import { SidebarNavLink } from "~/routes/dashboard/sidebar/sidebarNavLink"
+import type { Route } from "~/routes/dashboard/sidebar/types"
 
 export const mainRoutes: Route[] = [
   {
@@ -81,44 +80,31 @@ export function MainNav() {
           {
             mainRoutes.map((route) => (
               route.children ? (
-                <Collapsible key={route.label}>
-                  <SidebarMenuItem key={route.label}>
+                <Collapsible
+                  key={route.label}
+                  defaultOpen
+                  className="group/collapsible"
+                >
+                  <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <NavLink to={route.href}>
-                        {route.icon && <Icon icon={route.icon} />}
-                        {route.label}
-                      </NavLink>
+                      <SidebarNavLink route={route} />
                     </SidebarMenuButton>
+
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuAction>
-                        <ChevronDownIcon className="size-4" />
+                      <SidebarMenuAction className="w-6 h-6 flex items-center justify-center">
+                        <ChevronRight className="transition-transform group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuAction>
                     </CollapsibleTrigger>
+
                     <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {
-                          route.children.map((child) => (
-                            <SidebarMenuItem key={child.label}>
-                              <SidebarMenuButton asChild>
-                                <NavLink to={child.href}>
-                                  {child.icon && <Icon icon={child.icon} />}
-                                  {child.label}
-                                </NavLink>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ))
-                        }
-                      </SidebarMenuSub>
+                      <SidebarMenuSub subRoutes={route.children} />
                     </CollapsibleContent>
                   </SidebarMenuItem>
                 </Collapsible>
               ) : (
                 <SidebarMenuItem key={route.label}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={route.href} className={({ isActive }) => isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : ''}>
-                      {route.icon && <Icon icon={route.icon} />}
-                      {route.label}
-                    </NavLink>
+                    <SidebarNavLink route={route} />
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )
@@ -127,5 +113,21 @@ export function MainNav() {
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
+  )
+}
+
+function SidebarMenuSub({ subRoutes }: { subRoutes: Route[] }) {
+  return (
+    <SidebarMenuSubBase>
+      {
+        subRoutes.map((child) => (
+          <SidebarMenuSubItem key={child.label} className='pl-2'>
+            <SidebarMenuSubButton asChild>
+              <SidebarNavLink route={child} />
+            </SidebarMenuSubButton>
+          </SidebarMenuSubItem>
+        ))
+      }
+    </SidebarMenuSubBase>
   )
 }

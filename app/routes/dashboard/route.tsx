@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { DashboardHeader } from "~/routes/dashboard/header";
-import { DashboardSidebar } from "~/routes/dashboard/sidebar";
+import { DashboardSidebar } from "~/routes/dashboard/sidebar/sidebar";
 import type { Route } from "./+types/route";
 
 export function meta({ }: Route.MetaArgs) {
