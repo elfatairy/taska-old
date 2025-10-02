@@ -1,3 +1,4 @@
+import { AppLogo } from "~/components/AppLogo";
 import { Icon } from "~/components/Icon";
 import SearchBar from "~/components/SearchBar";
 import { Button } from "~/components/ui/button";
@@ -14,16 +15,12 @@ export function DashboardHeader() {
         <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
           <Icon icon='Menu' />
         </Button>
-        <Icon icon='Logo' width={30} height={30} className="hidden md:block" />
-        <div className="hidden md:block">
-          <SearchBar />
-        </div>
+        <AppLogo className="hidden md:block" />
+        <SearchBar className="hidden md:block" />
       </div>
       <div className="flex items-center gap-4">
         <NotificationTrigger />
-        <div className="hidden md:block">
-          <ProfileTrigger />
-        </div>
+        <ProfileTrigger className="hidden md:block" />
       </div>
     </div>
   )

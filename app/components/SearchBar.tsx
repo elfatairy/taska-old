@@ -1,9 +1,10 @@
 import { Icon } from "~/components/Icon";
 import { Input } from "~/components/ui/input";
+import { cn } from "~/lib/utils";
 
-export default function SearchBar() {
+export default function SearchBar({ className }: { className?: string }) {
   return (
-    <div className="flex">
+    <div className={cn("flex", className)}>
       <Input
         type="text"
         placeholder="Search"
@@ -16,6 +17,11 @@ export default function SearchBar() {
 
 function SearchIcon({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
-    <Icon icon="Search" strokeWidth={0.1} {...props} />
+    <Icon
+      icon="Search"
+      strokeWidth={0.1}
+      aria-hidden="true"
+      {...props}
+    />
   )
 }

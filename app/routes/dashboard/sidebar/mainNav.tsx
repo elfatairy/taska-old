@@ -91,7 +91,7 @@ export function MainNav() {
                     </SidebarMenuButton>
 
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuAction className="w-6 h-6 flex items-center justify-center">
+                      <SidebarMenuAction className="w-6 h-6 flex items-center justify-center" aria-label="Toggle Submenu">
                         <ChevronRight className="transition-transform group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuAction>
                     </CollapsibleTrigger>

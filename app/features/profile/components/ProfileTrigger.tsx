@@ -1,15 +1,20 @@
 import { Icon } from "~/components/Icon";
 
-export default function ProfileTrigger() {
+export default function ProfileTrigger({ className }: { className?: string }) {
   return (
-    <PlaceholderProfileIcon />
+    <div className={className}>
+      <PlaceholderProfileIcon />
+    </div>
   )
 }
 
 function PlaceholderProfileIcon() {
   return (
-    <div className="flex items-center justify-center bg-muted text-muted-foreground rounded-full w-9 h-9">
-      <Icon icon='Profile' className="w-4 h-4" />
+    <div
+      className="flex items-center justify-center bg-muted text-muted-foreground rounded-full w-9 h-9"
+      aria-label="Open Profile Menu"
+    >
+      <Icon icon='Profile' className="w-4 h-4" aria-hidden="true" />
     </div>
   )
 }
