@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import {
   isRouteErrorResponse,
   Links,
@@ -36,6 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <SpeedInsights />
       </body>
     </html>
   );
