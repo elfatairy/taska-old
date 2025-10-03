@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "role": "admin",
+    "avatar": "https://i.pravatar.cc/150?img=1",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "role": "user",
+    "avatar": "https://i.pravatar.cc/150?img=2",
+    "createdAt": "2024-02-20T14:15:00Z",
+    "isActive": true
+  },
+  {
+    "id": "3",
+    "name": "Bob Johnson",
+    "email": "bob.johnson@example.com",
+    "role": "user",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "createdAt": "2024-03-10T09:45:00Z",
+    "isActive": false
+  },
+  {
+    "id": "4",
+    "name": "Alice Williams",
+    "email": "alice.williams@example.com",
+    "role": "moderator",
+    "avatar": "https://i.pravatar.cc/150?img=4",
+    "createdAt": "2024-03-25T16:20:00Z",
+    "isActive": true
+  },
+  {
+    "id": "5",
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com",
+    "role": "user",
+    "avatar": "https://i.pravatar.cc/150?img=5",
+    "createdAt": "2024-04-05T11:00:00Z",
+    "isActive": true
+  }
+]

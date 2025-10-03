@@ -17,7 +17,7 @@ export function DashboardSidebar() {
         <Separator />
         <UtilityNav />
         <SidebarFooter className="md:hidden">
-
+          {/* TODO: Add profile popover here */}
         </SidebarFooter>
       </SidebarContent>
     </Sidebar>

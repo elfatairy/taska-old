@@ -1,4 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { useEffect } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -10,6 +11,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { initializeMockBackend } from './mock-backend';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -44,6 +46,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  // Initialize mock backend on app start
+  useEffect(() => {
+    initializeMockBackend();
+  }, []);
+
   return <Outlet />;
 }
 
