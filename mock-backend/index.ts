@@ -1,4 +1,4 @@
-import { axios } from "./axios";
+import { axios } from "./api";
 import { initializeUsers, registerUserEndpoints } from "./endpoints/users";
 import { storage } from "./storage";
 

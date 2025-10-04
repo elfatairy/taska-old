@@ -9,9 +9,9 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { initializeMockBackend } from '../mock-backend';
 import type { Route } from "./+types/root";
 import "./app.css";
-import { initializeMockBackend } from './mock-backend';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

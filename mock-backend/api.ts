@@ -1,14 +1,14 @@
-/* Mock Axios implementation */
+/* Mock api implementation */
 
 import type {
   EndpointConfig,
   ErrorConfig,
-  MockAxiosError,
-  MockAxiosRequestConfig,
-  MockAxiosResponse,
+  MockError,
+  MockRequestConfig,
+  MockResponse,
 } from "./types";
 
-class MockAxios {
+class MockApi {
   private endpoints: Map<string, Map<string, EndpointConfig>> = new Map();
   private delay: number = 100; // Simulate network latency
 
@@ -108,8 +108,8 @@ class MockAxios {
   createError(
     status: number,
     message: string,
-    config: MockAxiosRequestConfig
-  ): MockAxiosError {
+    config: MockRequestConfig
+  ): MockError {
     return {
       message,
       code: `ERR_${status}`,
@@ -120,16 +120,16 @@ class MockAxios {
         headers: {},
       },
       config,
-      isAxiosError: true,
+      isError: true,
     };
   }
 
   createResponse<T = any>(
     data: T,
-    config: MockAxiosRequestConfig,
+    config: MockRequestConfig,
     status: number = 200,
     headers: Record<string, string> = { "content-type": "application/json" }
-  ): MockAxiosResponse<T> {
+  ): MockResponse<T> {
     return {
       data,
       status,
@@ -155,8 +155,8 @@ class MockAxios {
   }
 
   private async request<T = any>(
-    config: MockAxiosRequestConfig
-  ): Promise<MockAxiosResponse<T>> {
+    config: MockRequestConfig
+  ): Promise<MockResponse<T>> {
     await new Promise((resolve) => setTimeout(resolve, this.delay));
 
     const { method, url, params = {} } = config;
@@ -195,41 +195,41 @@ class MockAxios {
 
   async get<T = any>(
     url: string,
-    config?: Omit<MockAxiosRequestConfig, "url" | "method">
-  ): Promise<MockAxiosResponse<T>> {
+    config?: Omit<MockRequestConfig, "url" | "method">
+  ): Promise<MockResponse<T>> {
     return this.request<T>({ ...config, method: "GET", url });
   }
 
   async post<T = any>(
     url: string,
     data?: any,
-    config?: Omit<MockAxiosRequestConfig, "url" | "method" | "data">
-  ): Promise<MockAxiosResponse<T>> {
+    config?: Omit<MockRequestConfig, "url" | "method" | "data">
+  ): Promise<MockResponse<T>> {
     return this.request<T>({ ...config, method: "POST", url, data });
   }
 
   async put<T = any>(
     url: string,
     data?: any,
-    config?: Omit<MockAxiosRequestConfig, "url" | "method" | "data">
-  ): Promise<MockAxiosResponse<T>> {
+    config?: Omit<MockRequestConfig, "url" | "method" | "data">
+  ): Promise<MockResponse<T>> {
     return this.request<T>({ ...config, method: "PUT", url, data });
   }
 
   async patch<T = any>(
     url: string,
     data?: any,
-    config?: Omit<MockAxiosRequestConfig, "url" | "method" | "data">
-  ): Promise<MockAxiosResponse<T>> {
+    config?: Omit<MockRequestConfig, "url" | "method" | "data">
+  ): Promise<MockResponse<T>> {
     return this.request<T>({ ...config, method: "PATCH", url, data });
   }
 
   async delete<T = any>(
     url: string,
-    config?: Omit<MockAxiosRequestConfig, "url" | "method">
-  ): Promise<MockAxiosResponse<T>> {
+    config?: Omit<MockRequestConfig, "url" | "method">
+  ): Promise<MockResponse<T>> {
     return this.request<T>({ ...config, method: "DELETE", url });
   }
 }
 
-export const axios = new MockAxios();
+export const api = new MockApi();

@@ -1,9 +1,9 @@
 /* CRUD operations for users */
 
-import { axios } from "../axios";
+import { api } from "../api";
 import initialUsers from "../data/users.json";
 import { storage } from "../storage";
-import type { MockAxiosRequestConfig, MockAxiosResponse } from "../types";
+import type { MockRequestConfig, MockResponse } from "../types";
 
 const STORAGE_KEY = "users";
 
@@ -31,8 +31,8 @@ function generateId(): string {
 
 /* GET /api/users - Get all users */
 async function getAllUsers(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<User[]>> {
+  config: MockRequestConfig
+): Promise<MockResponse<User[]>> {
   const users = getUsers();
 
   let filteredUsers = users;
@@ -45,37 +45,37 @@ async function getAllUsers(
     filteredUsers = filteredUsers.filter((u) => u.isActive === isActive);
   }
 
-  return axios.createResponse(filteredUsers, config);
+  return api.createResponse(filteredUsers, config);
 }
 
 /* GET /api/users/:id - Get user by ID */
 async function getUserById(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<User>> {
+  config: MockRequestConfig
+): Promise<MockResponse<User>> {
   const users = getUsers();
   const userId = config.params?.id;
   const user = users.find((u) => u.id === userId);
 
   if (!user) {
-    throw axios.createError(404, "User not found", config);
+    throw api.createError(404, "User not found", config);
   }
 
-  return axios.createResponse(user, config);
+  return api.createResponse(user, config);
 }
 
 /* POST /api/users - Create a new user */
 async function createUser(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<User>> {
+  config: MockRequestConfig
+): Promise<MockResponse<User>> {
   const users = getUsers();
   const newUserData = config.data;
 
   if (!newUserData.name || !newUserData.email) {
-    throw axios.createError(400, "Name and email are required", config);
+    throw api.createError(400, "Name and email are required", config);
   }
 
   if (users.some((u) => u.email === newUserData.email)) {
-    throw axios.createError(400, "Email already exists", config);
+    throw api.createError(400, "Email already exists", config);
   }
 
   const newUser: User = {
@@ -91,25 +91,25 @@ async function createUser(
   users.push(newUser);
   saveUsers(users);
 
-  return axios.createResponse(newUser, config, 201);
+  return api.createResponse(newUser, config, 201);
 }
 
 /* PUT /api/users/:id - Update user */
 async function updateUser(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<User>> {
+  config: MockRequestConfig
+): Promise<MockResponse<User>> {
   const users = getUsers();
   const userId = config.params?.id;
   const updateData = config.data;
   const userIndex = users.findIndex((u) => u.id === userId);
 
   if (userIndex === -1) {
-    throw axios.createError(404, "User not found", config);
+    throw api.createError(404, "User not found", config);
   }
 
   if (updateData.email && updateData.email !== users[userIndex].email) {
     if (users.some((u) => u.email === updateData.email)) {
-      throw axios.createError(400, "Email already exists", config);
+      throw api.createError(400, "Email already exists", config);
     }
   }
 
@@ -123,36 +123,36 @@ async function updateUser(
   users[userIndex] = updatedUser;
   saveUsers(users);
 
-  return axios.createResponse(updatedUser, config);
+  return api.createResponse(updatedUser, config);
 }
 
 /* PATCH /api/users/:id - Partially update user */
 async function patchUser(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<User>> {
+  config: MockRequestConfig
+): Promise<MockResponse<User>> {
   return updateUser(config);
 }
 
 /* DELETE /api/users/:id - Delete user */
 async function deleteUser(
-  config: MockAxiosRequestConfig
-): Promise<MockAxiosResponse<{ message: string }>> {
+  config: MockRequestConfig
+): Promise<MockResponse<{ message: string }>> {
   const users = getUsers();
   const userId = config.params?.id;
   const userIndex = users.findIndex((u) => u.id === userId);
 
   if (userIndex === -1) {
-    throw axios.createError(404, "User not found", config);
+    throw api.createError(404, "User not found", config);
   }
 
   users.splice(userIndex, 1);
   saveUsers(users);
 
-  return axios.createResponse({ message: "User deleted successfully" }, config);
+  return api.createResponse({ message: "User deleted successfully" }, config);
 }
 
 export function registerUserEndpoints(): void {
-  axios.registerEndpoint("GET", "/api/users", {
+  api.registerEndpoint("GET", "/api/users", {
     handler: getAllUsers,
     errors: [
       // Example: 5% chance of 500 error
@@ -160,7 +160,7 @@ export function registerUserEndpoints(): void {
     ],
   });
 
-  axios.registerEndpoint("GET", "/api/users/:id", {
+  api.registerEndpoint("GET", "/api/users/:id", {
     handler: getUserById,
     errors: [
       // Example: 3% chance of timeout
@@ -168,7 +168,7 @@ export function registerUserEndpoints(): void {
     ],
   });
 
-  axios.registerEndpoint("POST", "/api/users", {
+  api.registerEndpoint("POST", "/api/users", {
     handler: createUser,
     errors: [
       // Example: 2% chance of server error
@@ -176,15 +176,15 @@ export function registerUserEndpoints(): void {
     ],
   });
 
-  axios.registerEndpoint("PUT", "/api/users/:id", {
+  api.registerEndpoint("PUT", "/api/users/:id", {
     handler: updateUser,
   });
 
-  axios.registerEndpoint("PATCH", "/api/users/:id", {
+  api.registerEndpoint("PATCH", "/api/users/:id", {
     handler: patchUser,
   });
 
-  axios.registerEndpoint("DELETE", "/api/users/:id", {
+  api.registerEndpoint("DELETE", "/api/users/:id", {
     handler: deleteUser,
   });
 }

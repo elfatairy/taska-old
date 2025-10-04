@@ -1,12 +1,12 @@
-export interface MockAxiosResponse<T = any> {
+export interface MockResponse<T = any> {
   data: T;
   status: number;
   statusText: string;
   headers: Record<string, string>;
-  config: MockAxiosRequestConfig;
+  config: MockRequestConfig;
 }
 
-export interface MockAxiosError {
+export interface MockError {
   message: string;
   code?: string;
   response?: {
@@ -15,11 +15,11 @@ export interface MockAxiosError {
     statusText: string;
     headers: Record<string, string>;
   };
-  config?: MockAxiosRequestConfig;
-  isAxiosError: true;
+  config?: MockRequestConfig;
+  isError: true;
 }
 
-export interface MockAxiosRequestConfig {
+export interface MockRequestConfig {
   url: string;
   method: string;
   headers?: Record<string, any>;
@@ -28,8 +28,8 @@ export interface MockAxiosRequestConfig {
 }
 
 export type EndpointHandler = (
-  config: MockAxiosRequestConfig
-) => Promise<MockAxiosResponse>;
+  config: MockRequestConfig
+) => Promise<MockResponse>;
 
 export interface ErrorConfig {
   status: number;
