@@ -1,4 +1,4 @@
-import { axios } from "./api";
+import { api } from "./api";
 import { initializeUsers, registerUserEndpoints } from "./endpoints/users";
 import { storage } from "./storage";
 
@@ -16,15 +16,15 @@ export function resetMockBackend(): void {
 }
 
 export function setNetworkDelay(ms: number): void {
-  axios.setDelay(ms);
+  api.setDelay(ms);
 }
 
-export { axios, storage };
+export { api, storage };
 
 export type {
   EndpointConfig,
   ErrorConfig,
-  MockAxiosError,
-  MockAxiosRequestConfig,
-  MockAxiosResponse,
+  MockError,
+  MockRequestConfig,
+  MockResponse,
 } from "./types";

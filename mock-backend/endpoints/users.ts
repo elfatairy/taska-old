@@ -1,21 +1,12 @@
 /* CRUD operations for users */
 
 import { api } from "../api";
-import initialUsers from "../data/users.json";
+import type { User } from "../data/users";
+import { initialUsers } from "../data/users";
 import { storage } from "../storage";
 import type { MockRequestConfig, MockResponse } from "../types";
 
 const STORAGE_KEY = "users";
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  avatar?: string;
-  createdAt: string;
-  isActive: boolean;
-}
 
 function getUsers(): User[] {
   return storage.get<User[]>(STORAGE_KEY) || [];
@@ -39,10 +30,10 @@ async function getAllUsers(
   if (config.params?.role) {
     filteredUsers = users.filter((u) => u.role === config.params.role);
   }
-  if (config.params?.isActive !== undefined) {
-    const isActive =
-      config.params.isActive === "true" || config.params.isActive === true;
-    filteredUsers = filteredUsers.filter((u) => u.isActive === isActive);
+  if (config.params?.isOnline !== undefined) {
+    const isOnline =
+      config.params.isOnline === "true" || config.params.isOnline === true;
+    filteredUsers = filteredUsers.filter((u) => u.isOnline === isOnline);
   }
 
   return api.createResponse(filteredUsers, config);
@@ -85,7 +76,7 @@ async function createUser(
     role: newUserData.role || "user",
     avatar: newUserData.avatar,
     createdAt: new Date().toISOString(),
-    isActive: newUserData.isActive !== undefined ? newUserData.isActive : true,
+    isOnline: newUserData.isOnline !== undefined ? newUserData.isOnline : true,
   };
 
   users.push(newUser);
