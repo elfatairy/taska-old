@@ -13,7 +13,7 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function DashboardLayout() {
   return (
-    <div className="[--header-height:calc(--spacing(16))]">
+    <div className="[--header-height:calc(--spacing(14))]">
       <SidebarProvider className="flex flex-col">
         <DashboardHeader />
         <div className="flex flex-1">
