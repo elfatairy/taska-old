@@ -8,15 +8,15 @@ import type { MockRequestConfig, MockResponse } from "../types";
 
 const STORAGE_KEY = "users";
 
-function getUsers(): User[] {
+export function getUsers(): User[] {
   return storage.get<User[]>(STORAGE_KEY) || [];
 }
 
-function saveUsers(users: User[]): void {
+export function saveUsers(users: User[]): void {
   storage.set(STORAGE_KEY, users);
 }
 
-function generateId(): string {
+export function generateId(): string {
   return Date.now().toString() + Math.random().toString(36).substring(2, 9);
 }
 

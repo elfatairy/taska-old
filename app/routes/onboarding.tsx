@@ -1,9 +1,13 @@
 import { UserIcon } from "lucide-react";
-import { useNavigate } from "react-router";
+import { redirect, useFetcher } from "react-router";
 import { toast } from "sonner";
 import { Icon } from "~/components/Icon";
 import { Button } from "~/components/ui/button";
+import { queryClient } from "~/lib/react-query";
+import { tryCatch } from "~/lib/try-catch";
 import { cn } from "~/lib/utils";
+import { api } from "~/mock-backend/api";
+import type { User } from "~/mock-backend/data/users";
 
 type Role = {
   label: string;
@@ -39,7 +43,7 @@ const roles: Role[] = [
 ]
 
 export default function Onboarding() {
-  const navigate = useNavigate();
+  let fetcher = useFetcher()
 
   const handleRoleClick = (role: Role) => {
     if (role.locked) {
@@ -47,8 +51,10 @@ export default function Onboarding() {
       return;
     }
 
-    navigate(`/dashboard`, {
-      viewTransition: true
+    fetcher.submit({
+      role: role.value,
+    }, {
+      method: "post"
     });
   }
 
@@ -63,6 +69,7 @@ export default function Onboarding() {
               <Button
                 className={cn("relative flex-1 p-10 aspect-1 cursor-pointer ring-2 ring-transparent flex-col h-auto", !role.locked && "hover:ring-primary", role.locked && "opacity-50")}
                 variant="outline"
+                disabled={fetcher.state !== "idle"}
                 onClick={() => handleRoleClick(role)}
                 key={role.value}
               >
@@ -76,4 +83,28 @@ export default function Onboarding() {
       </div>
     </div>
   );
+}
+
+export const clientAction = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  const role = formData.get("role");
+
+  if (!role) {
+    return
+  }
+
+  const { data: response, error } = await tryCatch(api.post<User>("/api/login", {
+    role
+  }));
+
+  if (error) {
+    return toast.error("Failed to login");
+  }
+
+  const user = response.data;
+
+  localStorage.setItem("userId", user.id);
+  queryClient.setQueryData(["user"], user);
+
+  return redirect("/dashboard");
 }

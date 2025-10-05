@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { registerAuthEndpoints } from "./endpoints/auth";
 import { initializeUsers, registerUserEndpoints } from "./endpoints/users";
 import { storage } from "./storage";
 
@@ -8,6 +9,7 @@ export function initializeMockBackend(): void {
 
   // Register endpoints
   registerUserEndpoints();
+  registerAuthEndpoints();
 }
 
 export function resetMockBackend(): void {

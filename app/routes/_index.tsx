@@ -1,6 +1,10 @@
 import { redirect } from "react-router";
 
-export const loader = () => {
+export const clientLoader = async () => {
+  if (!localStorage.getItem("userId")) {
+    return redirect("/onboarding");
+  }
+
   return redirect("/dashboard");
 };
 

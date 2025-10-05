@@ -1,8 +1,14 @@
-import { Outlet } from "react-router";
+import { Outlet, redirect } from "react-router";
 import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { DashboardHeader } from "~/routes/dashboard/header";
 import { DashboardSidebar } from "~/routes/dashboard/sidebar/sidebar";
 import type { Route } from "./+types/route";
+
+export const clientLoader = async () => {
+  if (!localStorage.getItem("userId")) {
+    return redirect("/onboarding");
+  }
+};
 
 export function meta({ }: Route.MetaArgs) {
   return [
