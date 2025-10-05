@@ -8,6 +8,7 @@ import { tryCatch } from "~/lib/try-catch";
 import { cn } from "~/lib/utils";
 import { api } from "~/mock-backend/api";
 import type { User } from "~/mock-backend/data/users";
+import { userKeys } from "~/queries/userQueries";
 
 type Role = {
   label: string;
@@ -104,7 +105,7 @@ export const clientAction = async ({ request }: { request: Request }) => {
   const user = response.data;
 
   localStorage.setItem("userId", user.id);
-  queryClient.setQueryData(["user"], user);
+  queryClient.setQueryData(userKeys.currentUser(), user);
 
   return redirect("/dashboard");
 }

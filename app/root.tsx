@@ -9,10 +9,12 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '~/components/ui/sonner';
 import { initializeMockBackend } from '../mock-backend';
 import type { Route } from "./+types/root";
 import "./app.css";
+import { queryClient } from './lib/react-query';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -53,7 +55,11 @@ export default function App() {
     initializeMockBackend();
   }, []);
 
-  return <Outlet />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Outlet />
+    </QueryClientProvider>
+  )
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
