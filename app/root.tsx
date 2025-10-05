@@ -9,6 +9,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { Toaster } from '~/components/ui/sonner';
 import { initializeMockBackend } from '../mock-backend';
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -39,6 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <Toaster />
         <SpeedInsights />
       </body>
     </html>
