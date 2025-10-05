@@ -1,13 +1,16 @@
 import { fakerEN } from "@faker-js/faker";
 
-export type UserRole =
-  | "CTO"
-  | "PM"
-  | "Frontend Developer"
-  | "Backend Developer"
-  | "Designer"
-  | "QA"
-  | "DevOps";
+export const userRoles = [
+  "CTO",
+  "PM",
+  "Frontend Developer",
+  "Backend Developer",
+  "Designer",
+  "QA",
+  "DevOps",
+] as const;
+
+export type UserRole = (typeof userRoles)[number];
 
 export interface User {
   id: string;
