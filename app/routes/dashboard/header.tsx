@@ -20,7 +20,7 @@ export function DashboardHeader() {
       </div>
       <div className="flex items-center gap-4">
         <NotificationTrigger />
-        <ProfileTrigger className="hidden md:block" />
+        <ProfileTrigger className="hidden md:flex" />
       </div>
     </div>
   )

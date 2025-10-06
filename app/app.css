@@ -70,7 +70,8 @@ body {
   --destructive: oklch(0.577 0.245 27.325);
   --border: var(--color-slate-200);
   --input: var(--color-slate-200);
-  --ring: oklch(0.704 0.04 256.788);
+  /* --ring: oklch(0.704 0.04 256.788); */
+  --ring: var(--color-emerald-600);
   --separator: var(--color-slate-200);
 
   --sidebar: #fff;
@@ -80,7 +81,7 @@ body {
   --sidebar-primary: hsl(240 5.9% 10%);
   --sidebar-primary-foreground: hsl(0 0% 98%);
   --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: var(--color-emerald-600);
+  --sidebar-ring: --alpha(var(--color-emerald-600) / 50%);
 }
 
 .dark {
