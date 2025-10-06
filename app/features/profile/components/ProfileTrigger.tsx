@@ -1,23 +1,23 @@
 import { BadgeCheck, LogOut } from "lucide-react";
+import { useNavigate } from "react-router";
 import { Icon } from "~/components/Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "~/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
-import { useIsMobile } from "~/hooks/useMobile";
-import { useCurrentUser } from "~/queries/userQueries";
+import { useCurrentUser, useLogout } from "~/queries/userQueries";
 
 export default function ProfileTrigger({ className }: { className?: string }) {
   const { data: user } = useCurrentUser();
-  const isMobile = useIsMobile();
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
+  const navigate = useNavigate();
 
-  if (!user) return null;
+  if (!user) return <PlaceholderProfileIcon />;
 
-  // const Avatar = () => user.avatar ? (
-  //   <img src={user.avatar} alt="Profile" className="w-9 h-9 rounded-full" />
-  // ) : (
-  //   <PlaceholderProfileIcon />
-  // );
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div className={className}>
@@ -65,7 +65,7 @@ export default function ProfileTrigger({ className }: { className?: string }) {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             <LogOut />
             Log out
           </DropdownMenuItem>

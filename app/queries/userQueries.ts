@@ -1,4 +1,5 @@
-import { skipToken, useQuery } from "@tanstack/react-query";
+import { skipToken, useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "~/lib/react-query";
 import { api } from "~/mock-backend/api";
 import type { User } from "~/mock-backend/data/users";
 
@@ -25,5 +26,15 @@ export const useCurrentUser = () => {
     queryFn: localStorage.getItem("userId")
       ? () => getCurrentUser()
       : skipToken,
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: () => api.post<{ success: boolean }>("/api/auth/logout"),
+    onSuccess: () => {
+      localStorage.removeItem("userId");
+      queryClient.invalidateQueries({ queryKey: userKeys.currentUser() });
+    },
   });
 };

@@ -42,9 +42,19 @@ async function loginWithRole(
   return api.createResponse(newUser, config);
 }
 
+async function logout(
+  config: MockRequestConfig
+): Promise<MockResponse<{ success: boolean }>> {
+  return api.createResponse({ success: true }, config);
+}
+
 export function registerAuthEndpoints(): void {
-  api.registerEndpoint("POST", "/api/login-with-role", {
+  api.registerEndpoint("POST", "/api/auth/login-with-role", {
     handler: loginWithRole,
     errors: [{ status: 500, message: "Failed to login", probability: 0.01 }],
+  });
+  api.registerEndpoint("POST", "/api/auth/logout", {
+    handler: logout,
+    errors: [{ status: 500, message: "Failed to logout", probability: 0.01 }],
   });
 }

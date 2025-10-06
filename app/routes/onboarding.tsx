@@ -94,7 +94,7 @@ export const clientAction = async ({ request }: { request: Request }) => {
     return
   }
 
-  const { data: response, error } = await tryCatch(api.post<User>("/api/login-with-role", {
+  const { data: response, error } = await tryCatch(api.post<User>("/api/auth/login-with-role", {
     role
   }));
 
