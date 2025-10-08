@@ -1,5 +1,6 @@
 import { BadgeCheck, LogOut } from "lucide-react";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "~/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
@@ -46,7 +47,9 @@ export function ProfileDropdownContent() {
 
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {
+          toast.info("Account is still under development");
+        }}>
           <BadgeCheck />
           Account
         </DropdownMenuItem>
