@@ -1,22 +1,14 @@
-import { useNavigate } from "react-router";
 import { Icon } from "~/components/Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger } from "~/components/ui/dropdown-menu";
 import { ProfileDropdownContent } from "~/features/profile/components/DropdownContent";
-import { useCurrentUser, useLogout } from "~/queries/userQueries";
+import { useCurrentUser } from "~/queries/userQueries";
 
 export default function ProfileHeaderTrigger({ className }: { className?: string }) {
   const { data: user } = useCurrentUser();
-  const { mutate: logout } = useLogout();
-  const navigate = useNavigate();
 
   if (!user) return <PlaceholderProfileIcon />;
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   return (
     <div className={className}>
@@ -29,7 +21,7 @@ export default function ProfileHeaderTrigger({ className }: { className?: string
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <ProfileDropdownContent handleLogout={handleLogout} />
+        <ProfileDropdownContent />
       </DropdownMenu>
     </div>
   )

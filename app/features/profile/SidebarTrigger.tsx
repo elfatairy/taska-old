@@ -1,25 +1,15 @@
 import { EllipsisVertical } from "lucide-react";
-import { useNavigate } from "react-router";
 import { Icon } from "~/components/Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { DropdownMenu, DropdownMenuTrigger } from "~/components/ui/dropdown-menu";
-import { SidebarMenuButton, useSidebar } from "~/components/ui/sidebar";
+import { SidebarMenuButton } from "~/components/ui/sidebar";
 import { ProfileDropdownContent } from "~/features/profile/components/DropdownContent";
-import { useCurrentUser, useLogout } from "~/queries/userQueries";
+import { useCurrentUser } from "~/queries/userQueries";
 
 export default function ProfileSidebarTrigger({ className }: { className?: string }) {
   const { data: user } = useCurrentUser();
-  const { mutate: logout } = useLogout();
-  const navigate = useNavigate();
-  const { toggleSidebar } = useSidebar();
 
   if (!user) return <PlaceholderProfileIcon />;
-
-  const handleLogout = () => {
-    toggleSidebar();
-    logout();
-    navigate("/login");
-  };
 
   return (
     <div className={className}>
@@ -39,7 +29,7 @@ export default function ProfileSidebarTrigger({ className }: { className?: strin
             <EllipsisVertical className="ml-auto size-4" />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
-        <ProfileDropdownContent handleLogout={handleLogout} />
+        <ProfileDropdownContent />
       </DropdownMenu>
     </div>
   )

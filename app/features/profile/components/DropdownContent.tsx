@@ -1,11 +1,19 @@
 import { BadgeCheck, LogOut } from "lucide-react";
+import { useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "~/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
-import { useCurrentUser } from "~/queries/userQueries";
+import { useCurrentUser, useLogout } from "~/queries/userQueries";
 
-export function ProfileDropdownContent({ handleLogout }: { handleLogout: () => void }) {
+export function ProfileDropdownContent() {
   const { data: user } = useCurrentUser();
+  const { mutate: logout } = useLogout();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/onboarding");
+  };
 
   if (!user) return null;
 
