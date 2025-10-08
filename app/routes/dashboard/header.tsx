@@ -4,7 +4,7 @@ import SearchBar from "~/components/SearchBar";
 import { Button } from "~/components/ui/button";
 import { useSidebar } from "~/components/ui/sidebar";
 import NotificationTrigger from "~/features/notifications/components/NotificationTrigger";
-import ProfileTrigger from "~/features/profile/components/ProfileTrigger";
+import ProfileHeaderTrigger from "~/features/profile/HeaderTrigger";
 
 export function DashboardHeader() {
   const { toggleSidebar } = useSidebar();
@@ -20,7 +20,7 @@ export function DashboardHeader() {
       </div>
       <div className="flex items-center gap-4">
         <NotificationTrigger />
-        <ProfileTrigger className="hidden md:flex" />
+        <ProfileHeaderTrigger className="hidden md:flex" />
       </div>
     </div>
   )

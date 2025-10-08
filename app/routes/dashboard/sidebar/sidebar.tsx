@@ -1,7 +1,8 @@
 import { AppLogo } from "~/components/AppLogo";
 import SearchBar from "~/components/SearchBar";
 import { Separator } from "~/components/ui/separator";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from "~/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem } from "~/components/ui/sidebar";
+import ProfileSidebarTrigger from "~/features/profile/SidebarTrigger";
 import { MainNav } from "~/routes/dashboard/sidebar/mainNav";
 import { UtilityNav } from "~/routes/dashboard/sidebar/utilityNav";
 
@@ -17,7 +18,11 @@ export function DashboardSidebar() {
         <Separator />
         <UtilityNav />
         <SidebarFooter className="md:hidden">
-          {/* TODO: Add profile popover here */}
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <ProfileSidebarTrigger />
+            </SidebarMenuItem>
+          </SidebarMenu>
         </SidebarFooter>
       </SidebarContent>
     </Sidebar>
