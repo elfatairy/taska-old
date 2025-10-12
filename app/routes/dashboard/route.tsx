@@ -14,8 +14,8 @@ export const clientLoader = async () => {
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Taska - Manage your projects efficiently" },
+    { name: "description", content: "Manage your projects with Taska efficiently" },
   ];
 }
 
