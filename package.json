@@ -7,8 +7,7 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "icons": "npx @svgr/cli app/assets/svgs --out-dir app/components/icons --typescript --icon",
-    "preinstall": "node dist/setup.js"
+    "icons": "npx @svgr/cli app/assets/svgs --out-dir app/components/icons --typescript --icon"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
